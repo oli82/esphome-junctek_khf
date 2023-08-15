@@ -1,4 +1,4 @@
-#include "junctek_kgf.h"
+#include "junctek_khf.h"
 
 #include "esphome/core/log.h"
 #include "esphome/core/optional.h"
