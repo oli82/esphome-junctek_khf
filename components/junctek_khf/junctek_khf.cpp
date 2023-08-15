@@ -42,7 +42,7 @@ int getval(const char*& cursor)
   return *val;
 }
   
-
+namespace esphome {
 JuncTekKHF::JuncTekKHF(unsigned address, bool invert_current)
   : address_(address)
   , invert_current_(invert_current)
@@ -215,4 +215,5 @@ void JuncTekKHF::loop()
 float JuncTekKHF::get_setup_priority() const
 {
   return setup_priority::DATA;
+}
 }
