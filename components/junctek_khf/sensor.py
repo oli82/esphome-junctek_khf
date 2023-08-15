@@ -41,6 +41,7 @@ TYPES = [
     CONF_CURRENT,
     CONF_BATTERY_LEVEL,
     CONF_TEMPERATURE,
+    CONF_AMPHOUR_REMAINING,
 ]
 
 CONF_INVERT_CURRENT="invert_current"
@@ -80,6 +81,13 @@ CONFIG_SCHEMA = cv.All(
                 icon=ICON_THERMOMETER,
                 accuracy_decimals=0,
                 device_class=DEVICE_CLASS_TEMPERATURE,
+                state_class=STATE_CLASS_MEASUREMENT,
+            ),
+            cv.Optional(CONF_AMPHOUR_REMAINING): sensor.sensor_schema(
+                unit_of_measurement=UNIT_WATT,
+                icon="mdi:battery",
+                accuracy_decimals=0,
+                device_class=DEVICE_CLASS_BATTERY,
                 state_class=STATE_CLASS_MEASUREMENT,
             ),
             cv.Optional(CONF_INVERT_CURRENT, default=False): cv.boolean, 
