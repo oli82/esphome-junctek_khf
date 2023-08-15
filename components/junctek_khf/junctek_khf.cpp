@@ -193,7 +193,7 @@ void JuncTekKHF::loop()
   {
     this->last_settings_ = start_time;
     char buffer[20];
-    sprintf(buffer, ":R51=%d,1,1,\r\n", this->address_);
+    sprintf(buffer, ":R51=%d,2,1,\r\n", this->address_);
     write_str(buffer);
   }
 
@@ -201,7 +201,7 @@ void JuncTekKHF::loop()
   {
     this->last_stats_ = start_time;
     char buffer[20];
-    sprintf(buffer, ":R50=%d,1,1,\r\n", this->address_);
+    sprintf(buffer, ":R50=%d,2,1,\r\n", this->address_);
     write_str(buffer);
   }
 
