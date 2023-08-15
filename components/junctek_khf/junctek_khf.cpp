@@ -174,7 +174,7 @@ bool JuncTekKHF::readline()
   return false;
 }
 
-bool JuncTekKGF::verify_checksum(int checksum, const char* buffer)
+bool JuncTekKHF::verify_checksum(int checksum, const char* buffer)
 {
   long total = 0;
   while (auto val = try_getval(buffer))
