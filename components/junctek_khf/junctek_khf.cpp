@@ -118,8 +118,6 @@ void JuncTekKHF::handle_status(const char* buffer)
   ESP_LOGV("JunkTekKHF", "Recv %f %f %d %f %f %f", voltage, ampHourRemaining, direction, powerInWatts, amps, temperature);
   if (voltage_sensor_)
     this->voltage_sensor_->publish_state(voltage);
-if (ampHourRemaining_)
-	this->amphour_remaining_sensor_->publish_state(ampHourRemaining);
   if (battery_level_sensor_ && this->battery_capacity_)
     this->battery_level_sensor_->publish_state(ampHourRemaining * 100.0 / *this->battery_capacity_);
   if (current_sensor_)
