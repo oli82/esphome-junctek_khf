@@ -39,7 +39,7 @@ protected:
   sensor::Sensor* current_sensor_{nullptr};
   sensor::Sensor* battery_level_sensor_{nullptr};
   sensor::Sensor* temperature_{nullptr};
-  sensor::Sensor* set_amphours_remaining_sensor_{nullptr};
+  sensor::Sensor* amphours_remaining_sensor_{nullptr};
 
   static constexpr int MAX_LINE_LEN = 120;
   std::array<char, MAX_LINE_LEN> line_buffer_;
