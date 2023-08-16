@@ -28,6 +28,7 @@ from esphome.const import (
     DEVICE_CLASS_CURRENT,
     DEVICE_CLASS_BATTERY,
     DEVICE_CLASS_TEMPERATURE,
+    UNIT_WATT_HOURS,
 )
 
 CONF_AMPHOUR_REMAINING = "amphours_remaining"
