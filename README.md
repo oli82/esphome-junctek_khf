@@ -9,7 +9,7 @@ Connects to the Junctek KHF series battery monitor via UART (RS-485 adapter need
 * Temperature
 
 ## Requirements
-* ESPHome
+* ESPHome < 2023.07.x
 
 ## Tested setup
 Tested on ESP32 using a RS-485 uart into a Junctek KH110F, but should work on an ESP8266 and any of the KH-F series
