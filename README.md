@@ -17,6 +17,7 @@ Tested on ESP32 using a RS-485 uart into a Junctek KH110F, but should work on an
 ## Usage
 ### Connect hardware.
 The ESP32 needs to be connected via an RS-485 module to the RS-485 on the monitor using a 4cp4 connector.
+From left to right they are: B, A, GND, NC
 
 ## ESPHOME Config
 The applicable config for the device should look something like:
@@ -26,8 +27,8 @@ external_components:
   - source: github://oli82/esphome-junctek_khf
 
 uart:
-  tx_pin: 26
-  rx_pin: 27
+  tx_pin: 17  //use Hardware Serial 2
+  rx_pin: 16  //use Hardware Serial 2
   baud_rate: 115200
 
 sensor:
