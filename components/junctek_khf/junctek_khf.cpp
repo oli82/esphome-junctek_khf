@@ -42,6 +42,7 @@ int getval(const char*& cursor)
   return *val;
 }
   
+
 JuncTekKHF::JuncTekKHF(unsigned address, bool invert_current)
   : address_(address)
   , invert_current_(invert_current)
@@ -50,7 +51,7 @@ JuncTekKHF::JuncTekKHF(unsigned address, bool invert_current)
 
 void JuncTekKHF::dump_config()
 {
-  ESP_LOGCONFIG(TAG, "junctek_khf:");
+  ESP_LOGCONFIG(TAG, "junctek_KHF:");
   ESP_LOGCONFIG(TAG, "  address: %d", this->address_);
   ESP_LOGCONFIG(TAG, "  invert_current: %s", this->invert_current_ ? "True" : "False");
 }
@@ -88,6 +89,38 @@ void JuncTekKHF::handle_settings(const char* buffer)
   // Save the capacity for calculating the %
   this->battery_capacity_ = batteryAmpHourCapacity;
 
+ if (over_voltage_set_sensor_)
+    this->over_voltage_set_sensor_->publish_state(overVoltage); 
+ if (under_voltage_set_sensor_)
+    this->under_voltage_set_sensor_->publish_state(underVoltage); 
+ if (positive_overcurrent_set_sensor_)
+    this->positive_overcurrent_set_sensor_->publish_state(positiveOverCurrent); 
+ if (negative_overcurrent_set_sensor_)
+    this->negative_overcurrent_set_sensor_->publish_state(negativeOverCurrent); 
+ if (over_power_protection_set_sensor_)
+    this->over_power_protection_set_sensor_->publish_state(overPowerProtection); 
+ if (over_temperature_set_sensor_)
+    this->over_temperature_set_sensor_->publish_state(overTemperature); 
+ if (protection_recovery_seconds_set_sensor_)
+    this->protection_recovery_seconds_set_sensor_->publish_state(protectionRecoverySeconds); 
+ if (delay_time_set_sensor_)
+    this->delay_time_set_sensor_->publish_state(delayTime); 
+ if (battery_amphour_capacity_set_sensor_)
+    this->battery_amphour_capacity_set_sensor_->publish_state(batteryAmpHourCapacity); 
+ if (voltage_calibration_set_sensor_)
+    this->voltage_calibration_set_sensor_->publish_state(voltageCalibration); 
+ if (current_calibration_set_sensor_)
+    this->current_calibration_set_sensor_->publish_state(currentCalibration); 
+ if (temperature_calibration_set_sensor_)
+    this->temperature_calibration_set_sensor_->publish_state(temperatureCalibration); 
+ if (reserved_set_sensor_)
+    this->reserved_set_sensor_->publish_state(reserved); 
+ if (relay_normally_open_sensor_)
+    this->relay_normally_open_sensor_->publish_state(relayNormallyOpen); 
+ if (current_ratio_set_sensor_)
+    this->current_ratio_set_sensor_->publish_state(currentratio); 
+
+
   this->last_settings_ = millis();
 }
 
@@ -115,18 +148,35 @@ void JuncTekKHF::handle_status(const char* buffer)
   const int direction = getval(cursor);
   const int batteryLifeMinutes = getval(cursor);
   const float batteryInternalOhms = getval(cursor) / 100.0;
-  ESP_LOGV("JunkTekKHF", "Recv %f %f %d %f %f %f", voltage, ampHourRemaining, direction, powerInWatts, amps, temperature);
-  if (voltage_sensor_)
+  ESP_LOGV("JunkTekKHF", "Recv %f %f %d %f %f %f %f", voltage, ampHourRemaining, direction, powerInWatts, amps, temperature, wattHourRemaining);
+ if (power_sensor_)
+    this->power_sensor_->publish_state(powerInWatts); 
+ if (ah_battery_level_sensor_)
+    this->ah_battery_level_sensor_->publish_state(ampHourRemaining); 
+ if (ah_total_used_sensor_)
+    this->ah_total_used_sensor_->publish_state(ampHourTotalUsed); 
+ if (wh_battery_level_sensor_)
+    this->wh_battery_level_sensor_->publish_state(wattHourRemaining); 
+ if (running_time_sensor_)
+    this->running_time_sensor_->publish_state(runtimeSeconds); 
+ if (battery_internal_resistor_sensor_)
+    this->battery_internal_resistor_sensor_->publish_state(batteryInternalOhms); 
+ if (battery_life_sensor_)
+    this->battery_life_sensor_->publish_state(batteryLifeMinutes); 
+ if (relay_status_sensor_)
+    this->relay_status_sensor_->publish_state(relayStatus); 
+ if (direction_sensor_)
+    this->direction_sensor_->publish_state(direction); 
+
+ if (voltage_sensor_)
     this->voltage_sensor_->publish_state(voltage);
-  if (amphour_remaining_)
-    this->amphour_remaining_sensor_->publish_state(ampHourRemaining);  
   if (battery_level_sensor_ && this->battery_capacity_)
     this->battery_level_sensor_->publish_state(ampHourRemaining * 100.0 / *this->battery_capacity_);
   if (current_sensor_)
   {
     float adjustedCurrent = direction == 0 ? amps : -amps;
     if (invert_current_)
-      adjustedCurrent *= -1;
+      adjustedCurrent *= 1;
     current_sensor_->publish_state(adjustedCurrent);
   }
   if (temperature_)
