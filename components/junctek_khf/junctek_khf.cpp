@@ -179,7 +179,7 @@ void JuncTekKHF::handle_status(const char* buffer)
     current_sensor_->publish_state(adjustedCurrent);
   }
   if (power_sensor_)
-    this->power_sensor_->publish_state(voltage * current_sensor_);
+    this->power_sensor_->publish_state(voltage * amps);
   if (temperature_)
     this->temperature_->publish_state(temperature);
 
