@@ -88,6 +88,7 @@ void JuncTekKHF::handle_settings(const char* buffer)
 
   // Save the capacity for calculating the %
   this->battery_capacity_ = batteryAmpHourCapacity;
+  
 
  if (over_voltage_set_sensor_)
     this->over_voltage_set_sensor_->publish_state(overVoltage); 
@@ -143,7 +144,7 @@ void JuncTekKHF::handle_status(const char* buffer)
   const float wattHourRemaining = getval(cursor) / 100.0;
   const float runtimeSeconds = getval(cursor);
   const float temperature = getval(cursor) - 100.0;
-  const float powerInWatts = getval(cursor) / 100.0;
+ // const float powerInWatts = getval(cursor) / 100.0;
   const int relayStatus = getval(cursor);
   const int direction = getval(cursor);
   const int batteryLifeMinutes = getval(cursor);
