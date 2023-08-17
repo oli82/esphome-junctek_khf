@@ -149,9 +149,7 @@ void JuncTekKHF::handle_status(const char* buffer)
   const int batteryLifeMinutes = getval(cursor);
   const float batteryInternalOhms = getval(cursor) / 100.0;
   ESP_LOGV("JunkTekKHF", "Recv %f %f %d %f %f %f %f", voltage, ampHourRemaining, direction, powerInWatts, amps, temperature, wattHourRemaining);
- if (power_sensor_)
-    this->power_sensor_->publish_state(powerInWatts); 
- if (ah_battery_level_sensor_)
+  if (ah_battery_level_sensor_)
     this->ah_battery_level_sensor_->publish_state(ampHourRemaining); 
  if (ah_total_used_sensor_)
     this->ah_total_used_sensor_->publish_state(ampHourTotalUsed); 
@@ -167,10 +165,10 @@ void JuncTekKHF::handle_status(const char* buffer)
     this->relay_status_sensor_->publish_state(relayStatus); 
  if (direction_sensor_)
     this->direction_sensor_->publish_state(direction); 
-
+ 
  if (voltage_sensor_)
     this->voltage_sensor_->publish_state(voltage);
-  if (battery_level_sensor_ && this->battery_capacity_)
+ if (battery_level_sensor_ && this->battery_capacity_)
     this->battery_level_sensor_->publish_state(ampHourRemaining * 100.0 / *this->battery_capacity_);
   if (current_sensor_)
   {
@@ -179,6 +177,8 @@ void JuncTekKHF::handle_status(const char* buffer)
       adjustedCurrent *= 1;
     current_sensor_->publish_state(adjustedCurrent);
   }
+  if (power_sensor_)
+    this->power_sensor_->publish_state(voltage * current_sensor_);
   if (temperature_)
     this->temperature_->publish_state(temperature);
 
