@@ -32,7 +32,7 @@ from esphome.const import (
     ICON_FLASH,
     ICON_PERCENT,
     ICON_BATTERY,
-    ICON_EMPTY,
+    ICON_POWER,
     DEVICE_CLASS_CURRENT,
     DEVICE_CLASS_BATTERY,
     DEVICE_CLASS_TEMPERATURE,
@@ -143,7 +143,7 @@ CONFIG_SCHEMA = cv.All(
             ),
              cv.Optional(CONF_POWER): sensor.sensor_schema(
                 unit_of_measurement=UNIT_WATT,
-                icon=ICON_THERMOMETER,
+                icon=ICON_POWER,
                 accuracy_decimals=0,
                 device_class=DEVICE_CLASS_POWER,
                 state_class=STATE_CLASS_MEASUREMENT,
@@ -171,7 +171,7 @@ CONFIG_SCHEMA = cv.All(
             ),
              cv.Optional(CONF_RUNNING_TIME): sensor.sensor_schema(
                 unit_of_measurement=UNIT_SECOND,
-                icon=ICON_BATTERY,
+                icon="mdi:clock-check-outline",
                 accuracy_decimals=0,
                 device_class=DEVICE_CLASS_BATTERY,
                 state_class=STATE_CLASS_MEASUREMENT,
@@ -185,7 +185,7 @@ CONFIG_SCHEMA = cv.All(
             ),
              cv.Optional(CONF_BATTERY_LIFE): sensor.sensor_schema(
                 unit_of_measurement=UNIT_MINUTE,
-                icon=ICON_BATTERY,
+                icon="mdi:clock-check-outline",
                 accuracy_decimals=0,
                 device_class=DEVICE_CLASS_BATTERY,
                 state_class=STATE_CLASS_MEASUREMENT,
