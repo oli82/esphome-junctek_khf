@@ -51,7 +51,7 @@ JuncTekKHF::JuncTekKHF(unsigned address, bool invert_current)
 
 void JuncTekKHF::dump_config()
 {
-  ESP_LOGCONFIG(TAG, "junctek_KHF:");
+  ESP_LOGCONFIG(TAG, "junctek_khf:");
   ESP_LOGCONFIG(TAG, "  address: %d", this->address_);
   ESP_LOGCONFIG(TAG, "  invert_current: %s", this->invert_current_ ? "True" : "False");
 }
