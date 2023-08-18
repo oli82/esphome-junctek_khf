@@ -23,7 +23,6 @@ from esphome.const import (
     UNIT_AMPERE,
     UNIT_WATT,
     UNIT_WATT_HOURS,
-    UNIT_OHM,
     UNIT_MINUTE,
     UNIT_PERCENT,
     UNIT_SECOND,
@@ -40,13 +39,13 @@ from esphome.const import (
 )
 
 CONF_AH_BATTERY_LEVEL="ah_battery_level"
-CONF_AH_BATTERY_USED="ah_total_used"
+CONF_WH_BATTERY_DISCHAGE="wh_discharge"
 CONF_WH_BATTERY_LEVEL="wh_battery_level"
 CONF_RUNNING_TIME="running_time"
-CONF_BATTERY_RESISTOR="battery_internal_resistor"
 CONF_BATTERY_LIFE="battery_life"
 CONF_RELAY_STATUS="relay_status"
 CONF_DIRECTION="direction"
+CONF_TIME_ADJ="time_adjustment"
 CONF_OVERVOLTAGE_SET="over_voltage_set"
 CONF_UNDERVOLTAGE_SET="under_voltage_set"
 CONF_POSITIVE_OVERCURENT_SET="positive_overcurrent_set"
@@ -78,10 +77,10 @@ TYPES = [
     CONF_TEMPERATURE,
     CONF_POWER, 
     CONF_AH_BATTERY_LEVEL,
-    CONF_AH_BATTERY_USED,
+    CONF_WH_BATTERY_DISCHAGE,
     CONF_WH_BATTERY_LEVEL,
     CONF_RUNNING_TIME,
-    CONF_BATTERY_RESISTOR,
+    CONF_TIME_ADJ,
     CONF_BATTERY_LIFE,
     CONF_RELAY_STATUS,
     CONF_DIRECTION,
@@ -143,7 +142,7 @@ CONFIG_SCHEMA = cv.All(
             ),
              cv.Optional(CONF_POWER): sensor.sensor_schema(
                 unit_of_measurement=UNIT_WATT,
-                icon=ICON_THERMOMETER,
+                icon=ICON_POWER,
                 accuracy_decimals=0,
                 device_class=DEVICE_CLASS_POWER,
                 state_class=STATE_CLASS_MEASUREMENT,
@@ -155,10 +154,10 @@ CONFIG_SCHEMA = cv.All(
                 device_class=DEVICE_CLASS_BATTERY,
                 state_class=STATE_CLASS_MEASUREMENT,
             ),
-             cv.Optional(CONF_AH_BATTERY_USED): sensor.sensor_schema(
-                unit_of_measurement=UNIT_AMPERE_HEURE,
+             cv.Optional(CONF_WH_BATTERY_DISCHAGE): sensor.sensor_schema(
+                unit_of_measurement=UNIT_WATT_HEURE,
                 icon=ICON_BATTERY,
-                accuracy_decimals=0,
+                accuracy_decimals=2,
                 device_class=DEVICE_CLASS_BATTERY,
                 state_class=STATE_CLASS_MEASUREMENT,
             ),
@@ -171,13 +170,6 @@ CONFIG_SCHEMA = cv.All(
             ),
              cv.Optional(CONF_RUNNING_TIME): sensor.sensor_schema(
                 unit_of_measurement=UNIT_SECOND,
-                icon=ICON_BATTERY,
-                accuracy_decimals=0,
-                device_class=DEVICE_CLASS_BATTERY,
-                state_class=STATE_CLASS_MEASUREMENT,
-            ),
-             cv.Optional(CONF_BATTERY_RESISTOR): sensor.sensor_schema(
-                unit_of_measurement=UNIT_OHM,
                 icon=ICON_BATTERY,
                 accuracy_decimals=0,
                 device_class=DEVICE_CLASS_BATTERY,
@@ -284,6 +276,11 @@ CONFIG_SCHEMA = cv.All(
              cv.Optional(CONF_CURRENT_RATIO_SET): sensor.sensor_schema(
                 unit_of_measurement=UNIT_AMPERE,
                 icon=ICON_BATTERY,
+                device_class=DEVICE_CLASS_BATTERY,
+                state_class=STATE_CLASS_MEASUREMENT,
+            ),
+            cv.Optional(CONF_TIME_ADJ): sensor.sensor_schema(
+                icon=CLOCK,
                 device_class=DEVICE_CLASS_BATTERY,
                 state_class=STATE_CLASS_MEASUREMENT,
             ),
