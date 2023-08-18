@@ -281,7 +281,7 @@ CONFIG_SCHEMA = cv.All(
                 state_class=STATE_CLASS_MEASUREMENT,
             ),
             cv.Optional(CONF_TIME_ADJ): sensor.sensor_schema(
-                icon=CLOCK,
+                icon="mdi:clock-check-outline",
                 device_class=DEVICE_CLASS_BATTERY,
                 state_class=STATE_CLASS_MEASUREMENT,
             ),
