@@ -122,7 +122,7 @@ void JuncTekKHF::handle_settings(const char* buffer)
     this->current_ratio_set_sensor_->publish_state(currentratio); 
 
 
-  this->last_settings_ = millis();
+  this->last_settings_ = esphome::millis();
 }
 
 void JuncTekKHF::handle_status(const char* buffer)
@@ -183,7 +183,7 @@ void JuncTekKHF::handle_status(const char* buffer)
   if (temperature_)
     this->temperature_->publish_state(temperature);
 
-  this->last_stats_ = millis();
+  this->last_stats_ = esphome::millis();
 }
 
 void JuncTekKHF::handle_line()
@@ -240,7 +240,7 @@ bool JuncTekKHF::verify_checksum(int checksum, const char* buffer)
 
 void JuncTekKHF::loop()
 {
-  const unsigned long start_time = millis();
+  const unsigned long start_time = esphome::millis();
 
   if (!this->last_settings_ || (*this->last_settings_ + (30 * 1000)) < start_time)
   {
